@@ -202,4 +202,71 @@
   .animate-fade-up {
     animation: fadeUp 600ms cubic-bezier(0.19, 1, 0.22, 1) both;
   }
+
+  /* --- Cinematic hero motion (V1 Forge) --- */
+
+  /* Slow Ken Burns zoom + pan on hero background image */
+  @keyframes kenBurns {
+    0%   { transform: scale(1.05) translate(0, 0); }
+    50%  { transform: scale(1.14) translate(-1.5%, -1%); }
+    100% { transform: scale(1.05) translate(0, 0); }
+  }
+  .animate-ken-burns {
+    animation: kenBurns 28s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* Pulsing forge radial — subtle breathing of the crimson glow */
+  @keyframes forgePulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50%      { opacity: 1; transform: scale(1.06); }
+  }
+  .animate-forge-pulse {
+    animation: forgePulse 6s ease-in-out infinite;
+    will-change: opacity, transform;
+  }
+
+  /* Drifting embers — small dots floating up on a slow loop, decorative */
+  @keyframes emberFloat {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    15%  { opacity: 0.55; }
+    85%  { opacity: 0.4; }
+    100% { transform: translateY(-110vh) translateX(20px); opacity: 0; }
+  }
+  .animate-ember {
+    animation-name: emberFloat;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform, opacity;
+  }
+
+  /* Sheen shimmer — used on accent text words */
+  @keyframes textSheen {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .animate-sheen {
+    background: linear-gradient(
+      90deg,
+      var(--accent) 0%,
+      #ff5c4a 45%,
+      var(--accent) 55%,
+      var(--accent) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: textSheen 6s ease-in-out infinite;
+  }
+
+  /* Respect reduced-motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-ken-burns,
+    .animate-forge-pulse,
+    .animate-ember,
+    .animate-sheen {
+      animation: none !important;
+    }
+  }
 }
