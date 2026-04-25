@@ -13,4 +13,4 @@
  */
 import type { VariantId } from "./site";
 
-export const VARIANT_ID: VariantId = "v1";
+export const VARIANT_ID: VariantId = "v4";
