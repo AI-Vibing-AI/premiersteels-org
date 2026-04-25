@@ -11,7 +11,8 @@ import { HeroSpec } from "@/components/heroes/v2-spec";
 import { HeroNumbers } from "@/components/heroes/v3-numbers";
 import { HeroTower } from "@/components/heroes/v4-tower";
 import { HeroMarquee } from "@/components/heroes/v5-marquee";
-import { heroVariants, type VariantId } from "@/lib/site";
+import { heroVariants } from "@/lib/site";
+import { VARIANT_ID } from "@/lib/variant";
 
 const HERO_MAP = {
   v1: HeroForge,
@@ -21,15 +22,8 @@ const HERO_MAP = {
   v5: HeroMarquee,
 } as const;
 
-function resolveVariant(): VariantId {
-  const id = process.env.NEXT_PUBLIC_VARIANT_ID as VariantId | undefined;
-  if (id && id in HERO_MAP) return id;
-  // Default to v1 (Forge) on main branch and any unknown
-  return "v1";
-}
-
 export default function Home() {
-  const variantId = resolveVariant();
+  const variantId = VARIANT_ID;
   const Hero = HERO_MAP[variantId];
   const variantMeta = heroVariants.find((v) => v.id === variantId);
 
