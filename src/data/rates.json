@@ -1,0 +1,21 @@
+{
+  "mode": "range",
+  "lastUpdated": "2026-06-12",
+  "currency": "INR",
+  "unit": "per kg, GST extra",
+  "ranges": [
+    { "grade": "Fe 500", "minPerKg": 52, "maxPerKg": 58 },
+    { "grade": "Fe 500D", "minPerKg": 54, "maxPerKg": 60 },
+    { "grade": "Fe 550", "minPerKg": 56, "maxPerKg": 63 }
+  ],
+  "exact": null,
+  "sources": [
+    "https://www.ofbusiness.com/prices/mild-steel/primary-tmt",
+    "https://www.tatanexarc.com/steel/steel-prices-in-india/rungta-steel-price/",
+    "https://www.comaron.com/blog/rungta-tmt-steel-bar-price-today",
+    "https://www.comaron.com/blog/steel-price-per-kg-india-2026",
+    "https://www.tmtpricetoday.com/",
+    "https://ayronmart.com/tmt-steel-bar-prices/",
+    "https://civilsite.in/steel-price-list-india-2026-tmt-bar-rates-today/"
+  ]
+}

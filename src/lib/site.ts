@@ -1,13 +1,21 @@
 /**
- * Site-wide config / placeholders. Single source of truth for contact info,
- * brand strings, and routes. Real data replaces these later in one place.
+ * Site-wide config — SINGLE SOURCE OF TRUTH for contact info, brand strings,
+ * and routes. ALL contact data is verified business fact. Do not add fields
+ * not listed here without owner confirmation.
+ *
+ * VERIFIED BUSINESS FACTS (owner-confirmed, do not alter):
+ * - Authorized Rungta Steel distributor for Delhi, NCR and Uttar Pradesh only.
+ * - NO Uttarakhand service area.
+ * - NO email anywhere — WhatsApp + phone only.
+ * - NO testimonials — all were placeholder [Client X] entries, removed.
+ * - NO Fe 550D — only Fe 500, Fe 500D, Fe 550 stocked.
  */
 export const site = {
   name: "Premier Steels",
   legalName: "Premier Steels",
   tagline: "Authorized Rungta Steel Distributor",
   shortPitch:
-    "Bulk-grade TMT bars from authorized Rungta Steel distributor in Ghaziabad. Built for builders moving tonnage, not retail.",
+    "Bulk-grade Rungta TMT bars from authorized Rungta Steel distributor in Ghaziabad. Built for builders moving tonnage, not retail.",
   url: "https://premiersteels.org",
   domain: "premiersteels.org",
 
@@ -15,41 +23,44 @@ export const site = {
   variantId: process.env.NEXT_PUBLIC_VARIANT_ID || "main",
 
   contact: {
-    name: "[Placeholder Name]",
-    designation: "Director",
-    phone: "+91 99999 99999",
-    phoneRaw: "919999999999",
-    whatsapp: "919999999999",
-    email: "sales@premiersteels.org",
+    name: "Vivek Aggarwal",
+    designation: "Proprietor",
+    phone: "+91 98100 27078",
+    phoneRaw: "+919810027078",
+    /** WhatsApp number — owner's personal line. Use prefilled message; do NOT expose as generic contact. */
+    whatsapp: "919810027078",
+    /** NO email — WhatsApp and phone only. Do not add email fields. */
     address: {
-      street: "[Yard Address Line 1]",
-      area: "[Sector / Industrial Area]",
+      street: "8, Loha Mandi",
+      area: "Bulandshahar Industrial Area",
       city: "Ghaziabad",
       state: "Uttar Pradesh",
-      pincode: "201xxx",
+      pincode: "201009",
       country: "India",
     },
     hours: "Mon – Sat · 9:00 AM – 7:00 PM",
-    gst: "GSTIN: [PLACEHOLDER]",
-    mapsQuery: "Premier+Steels+Ghaziabad",
+    /** Maps link to address — pre-encoded */
+    mapsUrl:
+      "https://www.google.com/maps/search/?api=1&query=8%2C+Loha+Mandi%2C+Bulandshahar+Industrial+Area%2C+Ghaziabad%2C+Uttar+Pradesh+201009",
   },
 
   trust: {
     rungtaAuthorizedSince: "2018",
-    serviceArea: "Delhi-NCR · Western UP · Uttarakhand",
+    /** Service area: Delhi-NCR and Uttar Pradesh only. NOT Uttarakhand. */
+    serviceArea: "Delhi NCR · Uttar Pradesh",
     monthlyCapacity: "10,000+ MT",
     projectsSupplied: "500+",
     yearsInBusiness: "20+",
-    certifications: ["ISI Marked", "BIS Certified", "IS 1786:2008"],
+    certifications: ["IS 1786:2008"],
   },
 
-  /** Rungta TMT product range — accurate to Rungta's offering */
+  /** Rungta TMT product range — stocked grades only. NO Fe 550D. */
   products: [
     {
       grade: "Fe 500",
       label: "Fe 500",
       description:
-        "General-purpose construction grade. Excellent strength-to-weight, ideal for residential and commercial structures.",
+        "General-purpose construction grade. Excellent strength-to-weight ratio, ideal for residential and commercial structures.",
       sizes: ["8mm", "10mm", "12mm", "16mm", "20mm", "25mm", "28mm", "32mm"],
       yieldStrength: "500 N/mm²",
       certification: "IS 1786:2008",
@@ -80,46 +91,28 @@ export const site = {
     },
   ] as const,
 
-  testimonials: [
-    {
-      quote:
-        "Reliable supply across our 14 sites in Delhi-NCR. Premier Steels delivers the tonnage we need on the day we need it.",
-      author: "[Placeholder Name]",
-      role: "Project Director",
-      company: "[Placeholder Construction Co.]",
-    },
-    {
-      quote:
-        "Authentic Rungta Fe 500D, every consignment. Test certificates with every batch. That's not standard in this industry — it should be.",
-      author: "[Placeholder Name]",
-      role: "Structural Engineer",
-      company: "[Placeholder Engineering]",
-    },
-    {
-      quote:
-        "We needed 200 MT in 48 hours for an emergency casting. They delivered. That's the partnership we want from a steel distributor.",
-      author: "[Placeholder Name]",
-      role: "Site In-charge",
-      company: "[Placeholder Infra Pvt. Ltd.]",
-    },
-  ],
-
-  /** Public client logos / projects — replace with real partner names later */
-  clients: [
-    "[Client A]",
-    "[Client B]",
-    "[Client C]",
-    "[Client D]",
-    "[Client E]",
-    "[Client F]",
-  ],
+  /**
+   * Prefilled WhatsApp inquiry template — structured to filter casual browsers.
+   * Owner's personal line: present as "Bulk & trade inquiries".
+   */
+  whatsappTemplate:
+    "Hi Premier Steels, Rungta TMT inquiry — Grade: ___ , Quantity (MT): ___ , Delivery location: ___",
 } as const;
 
-/** WhatsApp click-to-chat URL with prefilled inquiry */
-export function whatsappUrl(prefill?: string): string {
-  const text =
-    prefill ??
-    `Hi Premier Steels, I'd like a bulk quote for Rungta TMT bars. My requirement is approximately ___ MT, location ___.`;
+/**
+ * Returns a WhatsApp click-to-chat URL with a prefilled message.
+ * Defaults to the structured inquiry template that filters casual browsers.
+ * Pass a custom message for product-specific CTAs.
+ *
+ * @example
+ * whatsappUrl()
+ * // → "https://wa.me/919810027078?text=Hi+Premier+Steels%2C+Rungta+TMT..."
+ *
+ * @example
+ * whatsappUrl("Hi, I need Fe 500D 12mm — Quantity: 50 MT — Delhi delivery")
+ */
+export function whatsappUrl(message?: string): string {
+  const text = message ?? site.whatsappTemplate;
   return `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(text)}`;
 }
 

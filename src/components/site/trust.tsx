@@ -1,19 +1,26 @@
 import Image from "next/image";
-import { Award, Clock, Quote, ShieldCheck, Truck } from "lucide-react";
+import { Award, Clock, ShieldCheck } from "lucide-react";
 import { site } from "@/lib/site";
 
 const STATS = [
   { value: site.trust.monthlyCapacity, label: "Monthly Capacity" },
   { value: site.trust.projectsSupplied, label: "Projects Supplied" },
   { value: site.trust.yearsInBusiness, label: "Years in Business" },
-  { value: site.trust.serviceArea.split("·")[0].trim(), label: "Primary Region" },
+  {
+    value: `Since ${site.trust.rungtaAuthorizedSince}`,
+    label: "Rungta Authorized",
+  },
 ];
 
 const BADGES = [
-  { icon: ShieldCheck, label: "Authorized Rungta", sub: `Distributor since ${site.trust.rungtaAuthorizedSince}` },
-  { icon: Award, label: "ISI Marked", sub: "BIS-licensed steel" },
-  { icon: Truck, label: "Fleet Owned", sub: "Same-day Ghaziabad" },
-  { icon: Clock, label: "On-time", sub: "Schedule-grade delivery" },
+  {
+    icon: ShieldCheck,
+    label: "Authorized Rungta",
+    sub: `Distributor since ${site.trust.rungtaAuthorizedSince}`,
+  },
+  { icon: Award, label: "IS 1786:2008", sub: "Mill test cert with every lot" },
+  { icon: ShieldCheck, label: "Direct from Yard", sub: "Same-day Ghaziabad delivery" },
+  { icon: Clock, label: "On-time", sub: "Schedule-grade dispatch" },
 ];
 
 export function Trust() {
@@ -41,7 +48,7 @@ export function Trust() {
           ))}
         </div>
 
-        {/* Heading */}
+        {/* Why choose us */}
         <div className="mt-20 grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
@@ -52,10 +59,11 @@ export function Trust() {
               <span className="text-accent">Engineered partnership.</span>
             </h2>
             <p className="mt-6 text-lg text-text-muted">
-              Authenticity isn&apos;t a feature — it&apos;s the price of admission. What separates
-              Premier Steels is the operational discipline behind every consignment:
-              schedule-grade delivery, mill test certificates, and a yard sized for
-              project-scale orders.
+              Authenticity isn&apos;t a feature — it&apos;s the price of
+              admission. What separates Premier Steels is the operational
+              discipline behind every consignment: schedule-grade delivery, mill
+              test certificates, and a yard sized for project-scale orders across
+              Delhi NCR and Uttar Pradesh.
             </p>
 
             <div className="mt-8 grid grid-cols-2 gap-3">
@@ -76,53 +84,33 @@ export function Trust() {
             </div>
           </div>
 
-          {/* Testimonials */}
+          {/* What we guarantee */}
           <div className="lg:col-span-7">
             <div className="space-y-4">
-              {site.testimonials.map((t, i) => (
-                <figure
-                  key={i}
-                  className="relative rounded-xl border border-border bg-surface p-6 lg:p-8"
-                >
-                  <Quote
-                    className="absolute right-6 top-6 h-8 w-8 text-accent/20"
-                    aria-hidden
-                  />
-                  <blockquote className="text-base leading-relaxed text-foreground lg:text-lg">
-                    &ldquo;{t.quote}&rdquo;
-                  </blockquote>
-                  <figcaption className="mt-5 flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 font-display text-sm font-bold text-accent">
-                      {t.author.charAt(1)}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold">{t.author}</p>
-                      <p className="text-xs text-text-muted">
-                        {t.role} · {t.company}
-                      </p>
-                    </div>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Client marquee */}
-        <div className="mt-20">
-          <p className="text-center font-mono text-xs uppercase tracking-[0.3em] text-text-subtle">
-            Trusted by builders across Delhi-NCR
-          </p>
-          <div className="mt-6 relative overflow-hidden">
-            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background to-transparent" />
-            <div className="flex w-max animate-marquee gap-12 py-2">
-              {[...site.clients, ...site.clients, ...site.clients].map((c, i) => (
+              {[
+                {
+                  title: "Mill test certificate with every consignment",
+                  body: "Every TMT bar we supply comes with Rungta's original mill test certificate. Your structural engineer can verify grade, elongation, and tensile strength — not just take our word for it.",
+                },
+                {
+                  title: "Pricing confirmed before dispatch — no surprises",
+                  body: "Rates change daily in the steel market. We lock in your price at the time of order and confirm in writing on WhatsApp before a single bar leaves our yard.",
+                },
+                {
+                  title: "Delivery scheduled to your casting day",
+                  body: "Same-day dispatch within Ghaziabad. Next-day delivery across Delhi NCR. Scheduled dispatch to project sites across Uttar Pradesh — coordinated with your pour schedule.",
+                },
+              ].map((item) => (
                 <div
-                  key={`${c}-${i}`}
-                  className="flex h-12 w-44 flex-shrink-0 items-center justify-center rounded-lg border border-border bg-surface/60 font-display text-sm font-semibold text-text-muted"
+                  key={item.title}
+                  className="rounded-xl border border-border bg-surface p-6 lg:p-8"
                 >
-                  {c}
+                  <p className="text-base font-semibold text-foreground lg:text-lg">
+                    {item.title}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-text-muted">
+                    {item.body}
+                  </p>
                 </div>
               ))}
             </div>
@@ -143,8 +131,9 @@ export function Trust() {
               Officially Authorized Rungta Steel Distributor
             </p>
             <p className="mt-2 text-sm text-text-muted">
-              Premier Steels is the authorized Rungta Steel distributor for Ghaziabad
-              and Delhi-NCR. Every TMT bar carries Rungta&apos;s mill test certificate.
+              Premier Steels is the authorized Rungta Steel distributor for
+              Ghaziabad and Delhi NCR. Every TMT bar carries Rungta&apos;s mill
+              test certificate. Service area: Delhi NCR and Uttar Pradesh.
             </p>
           </div>
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent">

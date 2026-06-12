@@ -15,7 +15,7 @@ const PILLARS = [
   {
     icon: MapPin,
     title: site.trust.serviceArea,
-    body: "Same-day Ghaziabad, next-day Delhi-NCR, scheduled deliveries across Western UP and Uttarakhand.",
+    body: "Same-day Ghaziabad, next-day Delhi NCR, scheduled deliveries across Uttar Pradesh.",
   },
   {
     icon: Building2,

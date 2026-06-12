@@ -2,22 +2,37 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { Menu, Phone, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { site, whatsappUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const NAV = [
+  { href: "/rungta-tmt-price-today", label: "Prices" },
+  { href: "/rungta-tmt-dealer-delhi-ncr", label: "Dealer" },
   { href: "#about", label: "About" },
   { href: "#products", label: "Products" },
   { href: "#trust", label: "Why Us" },
   { href: "#contact", label: "Contact" },
 ];
 
+const RESOURCES = [
+  { href: "/tmt-bar-weight-chart", label: "TMT Bar Weight Chart" },
+  { href: "/tmt-steel-calculator", label: "Steel Calculator" },
+  { href: "/fe-500-vs-fe-500d-vs-fe-550", label: "Grade Comparison" },
+  { href: "/steel-required-for-1000-sq-ft-house", label: "Steel for 1000 sq ft" },
+  { href: "/rungta-tmt-specifications", label: "Specifications" },
+  { href: "/bulk-tmt-bar-supplier-delhi-ncr", label: "Bulk Supplier" },
+  { href: "/saria-rate-today-delhi", label: "Saria Rate Today" },
+  { href: "/rungta-steel-review", label: "Rungta Steel Review" },
+];
+
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
+  const resourcesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -25,6 +40,19 @@ export function SiteHeader() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Close Resources dropdown on outside click
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (resourcesRef.current && !resourcesRef.current.contains(e.target as Node)) {
+        setResourcesOpen(false);
+      }
+    }
+    if (resourcesOpen) {
+      document.addEventListener("mousedown", handleClick);
+    }
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [resourcesOpen]);
 
   return (
     <header
@@ -36,7 +64,7 @@ export function SiteHeader() {
       )}
     >
       <div className="container-page flex h-16 items-center justify-between gap-4 lg:h-20">
-        <Link href="#top" className="flex items-center gap-3" aria-label={site.name}>
+        <Link href="/" className="flex items-center gap-3" aria-label={site.name}>
           <Image
             src="/brand/premier-steels-mark.svg"
             alt=""
@@ -55,7 +83,7 @@ export function SiteHeader() {
           </div>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-8" aria-label="Primary">
+        <nav className="hidden lg:flex items-center gap-6" aria-label="Primary">
           {NAV.map((item) => (
             <a
               key={item.href}
@@ -65,6 +93,43 @@ export function SiteHeader() {
               {item.label}
             </a>
           ))}
+
+          {/* Resources dropdown */}
+          <div className="relative" ref={resourcesRef}>
+            <button
+              type="button"
+              onClick={() => setResourcesOpen((v) => !v)}
+              aria-expanded={resourcesOpen}
+              aria-haspopup="true"
+              className="flex items-center gap-1 text-sm font-medium text-text-muted transition-colors hover:text-foreground"
+            >
+              Resources
+              <ChevronDown
+                className={cn(
+                  "h-3.5 w-3.5 transition-transform duration-200",
+                  resourcesOpen && "rotate-180"
+                )}
+                aria-hidden
+              />
+            </button>
+            {resourcesOpen && (
+              <div className="absolute left-0 top-full mt-2 w-52 rounded-lg border border-border bg-background shadow-lg">
+                <ul className="py-1.5">
+                  {RESOURCES.map((r) => (
+                    <li key={r.href}>
+                      <a
+                        href={r.href}
+                        onClick={() => setResourcesOpen(false)}
+                        className="block px-4 py-2 text-sm text-foreground hover:bg-surface hover:text-accent transition-colors"
+                      >
+                        {r.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
@@ -116,6 +181,18 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className="py-3 text-base font-medium text-foreground border-b border-border last:border-0"
+              >
+                {item.label}
+              </a>
+            ))}
+            <p className="pt-4 pb-1 text-xs font-semibold uppercase tracking-wider text-text-muted">
+              Resources
+            </p>
+            {RESOURCES.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="py-2.5 text-sm font-medium text-foreground border-b border-border last:border-0"
               >
                 {item.label}
               </a>

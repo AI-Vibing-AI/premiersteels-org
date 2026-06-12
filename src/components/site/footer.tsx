@@ -1,12 +1,42 @@
 import Image from "next/image";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { MapPin, Phone } from "lucide-react";
 import { site, whatsappUrl } from "@/lib/site";
+
+const CITIES = [
+  { href: "/rungta-tmt-dealer-delhi-ncr", label: "Delhi NCR" },
+  { href: "/rungta-tmt-dealer-in-ghaziabad", label: "Ghaziabad" },
+  { href: "/rungta-tmt-dealer-in-noida", label: "Noida" },
+  { href: "/rungta-tmt-dealer-in-greater-noida", label: "Greater Noida" },
+  { href: "/rungta-tmt-dealer-in-faridabad", label: "Faridabad" },
+  { href: "/rungta-tmt-dealer-in-gurgaon", label: "Gurgaon" },
+  { href: "/rungta-tmt-dealer-in-meerut", label: "Meerut" },
+  { href: "/rungta-tmt-dealer-in-moradabad", label: "Moradabad" },
+  { href: "/rungta-tmt-dealer-in-hapur", label: "Hapur" },
+];
+
+const PRODUCTS_PRICES = [
+  { href: "/rungta-tmt-price-today", label: "Rungta TMT Price Today" },
+  { href: "/saria-rate-today-delhi", label: "Saria Rate Today Delhi" },
+  { href: "/rungta-fe-500d-tmt-bars", label: "Rungta Fe 500D TMT Bars" },
+  { href: "/rungta-fe-550-tmt-bars", label: "Rungta Fe 550 TMT Bars" },
+  { href: "/bulk-tmt-bar-supplier-delhi-ncr", label: "Bulk TMT Supplier Delhi NCR" },
+  { href: "/rungta-tmt-specifications", label: "TMT Specifications" },
+];
+
+const GUIDES = [
+  { href: "/tmt-bar-weight-chart", label: "TMT Bar Weight Chart" },
+  { href: "/tmt-steel-calculator", label: "TMT Steel Calculator" },
+  { href: "/fe-500-vs-fe-500d-vs-fe-550", label: "Fe 500 vs Fe 500D vs Fe 550" },
+  { href: "/steel-required-for-1000-sq-ft-house", label: "Steel for 1000 sq ft House" },
+  { href: "/rungta-steel-review", label: "Rungta Steel Review" },
+];
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-surface">
       <div className="container-page grid gap-12 py-16 lg:grid-cols-12 lg:py-20">
-        <div className="lg:col-span-5">
+        {/* Brand column */}
+        <div className="lg:col-span-4">
           <Image
             src="/brand/premier-steels-mark.svg"
             alt={site.name}
@@ -21,43 +51,42 @@ export function SiteFooter() {
             Authorized Rungta Distributor · Ghaziabad
           </p>
           <p className="mt-6 max-w-md text-sm text-text-muted">
-            Bulk-grade Rungta Steel TMT bars supplied across Delhi-NCR, Western UP,
-            and Uttarakhand. {site.trust.monthlyCapacity} monthly capacity.{" "}
-            {site.trust.projectsSupplied} projects supplied since {site.trust.rungtaAuthorizedSince}.
+            Bulk-grade Rungta Steel TMT bars supplied across Delhi NCR and
+            Uttar Pradesh. {site.trust.monthlyCapacity} monthly capacity.{" "}
+            {site.trust.projectsSupplied} projects supplied since{" "}
+            {site.trust.rungtaAuthorizedSince}.
           </p>
-        </div>
 
-        <div className="lg:col-span-3">
-          <h4 className="text-sm font-semibold uppercase tracking-wider text-text-muted">
-            Sections
-          </h4>
-          <ul className="mt-4 space-y-2 text-sm">
-            <li>
-              <a href="#about" className="text-foreground hover:text-accent transition-colors">
-                About
+          {/* Contact */}
+          <ul className="mt-6 space-y-3 text-sm">
+            <li className="flex items-start gap-3">
+              <MapPin
+                className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent"
+                aria-hidden
+              />
+              <address className="not-italic text-foreground">
+                {site.contact.address.street},<br />
+                {site.contact.address.area},<br />
+                {site.contact.address.city}, {site.contact.address.state}{" "}
+                {site.contact.address.pincode}
+              </address>
+            </li>
+            <li className="flex items-center gap-3">
+              <Phone className="h-4 w-4 flex-shrink-0 text-accent" aria-hidden />
+              <a
+                href={`tel:${site.contact.phoneRaw}`}
+                className="plausible-event-name=call_click font-mono text-foreground hover:text-accent transition-colors"
+              >
+                {site.contact.phone}
               </a>
             </li>
-            <li>
-              <a href="#products" className="text-foreground hover:text-accent transition-colors">
-                Products
-              </a>
-            </li>
-            <li>
-              <a href="#trust" className="text-foreground hover:text-accent transition-colors">
-                Why Us
-              </a>
-            </li>
-            <li>
-              <a href="#contact" className="text-foreground hover:text-accent transition-colors">
-                Bulk Quote
-              </a>
-            </li>
+            <li className="text-text-muted">{site.contact.hours}</li>
             <li>
               <a
                 href={whatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-foreground hover:text-accent transition-colors"
+                className="plausible-event-name=whatsapp_click text-foreground hover:text-accent transition-colors"
               >
                 WhatsApp
               </a>
@@ -65,39 +94,60 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        <div className="lg:col-span-4">
+        {/* Cities Served */}
+        <div className="lg:col-span-2">
           <h4 className="text-sm font-semibold uppercase tracking-wider text-text-muted">
-            Contact
+            Cities Served
           </h4>
-          <ul className="mt-4 space-y-3 text-sm">
-            <li className="flex items-start gap-3">
-              <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent" aria-hidden />
-              <span className="text-foreground">
-                {site.contact.address.street},<br />
-                {site.contact.address.area},<br />
-                {site.contact.address.city}, {site.contact.address.state} {site.contact.address.pincode}
-              </span>
-            </li>
-            <li className="flex items-center gap-3">
-              <Phone className="h-4 w-4 text-accent" aria-hidden />
-              <a
-                href={`tel:${site.contact.phone.replace(/\s+/g, "")}`}
-                className="font-mono text-foreground hover:text-accent transition-colors"
-              >
-                {site.contact.phone}
-              </a>
-            </li>
-            <li className="flex items-center gap-3">
-              <Mail className="h-4 w-4 text-accent" aria-hidden />
-              <a
-                href={`mailto:${site.contact.email}`}
-                className="text-foreground hover:text-accent transition-colors"
-              >
-                {site.contact.email}
-              </a>
-            </li>
-            <li className="pt-2 text-text-muted">{site.contact.hours}</li>
-            <li className="font-mono text-xs text-text-subtle">{site.contact.gst}</li>
+          <ul className="mt-4 space-y-2 text-sm">
+            {CITIES.map((c) => (
+              <li key={c.href}>
+                <a
+                  href={c.href}
+                  className="text-foreground hover:text-accent transition-colors"
+                >
+                  {c.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Products & Prices */}
+        <div className="lg:col-span-3">
+          <h4 className="text-sm font-semibold uppercase tracking-wider text-text-muted">
+            Products &amp; Prices
+          </h4>
+          <ul className="mt-4 space-y-2 text-sm">
+            {PRODUCTS_PRICES.map((p) => (
+              <li key={p.href}>
+                <a
+                  href={p.href}
+                  className="text-foreground hover:text-accent transition-colors"
+                >
+                  {p.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Guides */}
+        <div className="lg:col-span-3">
+          <h4 className="text-sm font-semibold uppercase tracking-wider text-text-muted">
+            Guides
+          </h4>
+          <ul className="mt-4 space-y-2 text-sm">
+            {GUIDES.map((g) => (
+              <li key={g.href}>
+                <a
+                  href={g.href}
+                  className="text-foreground hover:text-accent transition-colors"
+                >
+                  {g.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
@@ -105,7 +155,8 @@ export function SiteFooter() {
       <div className="border-t border-border">
         <div className="container-page flex flex-col items-center justify-between gap-3 py-6 text-xs text-text-subtle md:flex-row">
           <p>
-            © {new Date().getFullYear()} Premier Steels. All rights reserved.{" "}
+            &copy; {new Date().getFullYear()} Premier Steels. All rights
+            reserved.{" "}
             <span className="text-text-muted">
               Authorized distributor of Rungta Steel Limited.
             </span>

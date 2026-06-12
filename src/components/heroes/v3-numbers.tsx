@@ -42,7 +42,7 @@ export function HeroNumbers() {
         <div className="mt-14 grid grid-cols-2 gap-8 lg:mt-20 lg:grid-cols-4 lg:gap-4">
           {[
             { v: site.trust.monthlyCapacity, l: "Monthly tonnage", sub: "Schedule-grade supply" },
-            { v: site.trust.projectsSupplied, l: "Projects supplied", sub: "Delhi-NCR · UP · Uttarakhand" },
+            { v: site.trust.projectsSupplied, l: "Projects supplied", sub: "Delhi NCR · Uttar Pradesh" },
             { v: site.trust.yearsInBusiness, l: "Years in trade", sub: `Since ${2026 - parseInt(site.trust.yearsInBusiness)}` },
             { v: site.products.length.toString(), l: "Rungta TMT grades", sub: "Fe 500 · 500D · 550" },
           ].map((s, i) => (

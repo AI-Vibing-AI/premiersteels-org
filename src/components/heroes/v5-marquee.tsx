@@ -1,15 +1,15 @@
 import Image from "next/image";
-import { ArrowRight, Award, MessageCircle, ShieldCheck, Truck } from "lucide-react";
+import { ArrowRight, Award, MessageCircle, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { site, whatsappUrl } from "@/lib/site";
 
 const TRUST_TOKENS = [
-  { icon: ShieldCheck, label: "Authorized Rungta" },
-  { icon: Award, label: "ISI Marked" },
-  { icon: Award, label: "BIS Certified" },
-  { icon: Truck, label: "Owned Fleet" },
-  { icon: ShieldCheck, label: "IS 1786:2008" },
-  { icon: ShieldCheck, label: "Mill Test Certified" },
+  { icon: ShieldCheck, label: "Authorized Rungta Distributor" },
+  { icon: Award, label: "IS 1786:2008 Certified" },
+  { icon: ShieldCheck, label: "Mill Certificate" },
+  { icon: ShieldCheck, label: "Mill Test Certificate" },
+  { icon: ShieldCheck, label: "Since 2018" },
+  { icon: Award, label: "Delhi NCR · Uttar Pradesh" },
 ];
 
 /**

@@ -42,7 +42,7 @@ export function HeroTower() {
               {[
                 "Mill test certificate per consignment",
                 "Same-day Ghaziabad · Next-day NCR",
-                "Owned fleet, no broker delays",
+                "Direct from yard, no broker delays",
                 "MT-grade pricing, transparent",
               ].map((point) => (
                 <li

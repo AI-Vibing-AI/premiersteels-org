@@ -1,8 +1,9 @@
 import { About } from "@/components/site/about";
+import { Contact } from "@/components/site/contact";
 import { SiteFooter } from "@/components/site/footer";
 import { SiteHeader } from "@/components/site/header";
-import { LeadForm } from "@/components/site/lead-form";
 import { Products } from "@/components/site/products";
+import { ServiceAreas } from "@/components/site/service-areas";
 import { Trust } from "@/components/site/trust";
 import { VariantBadge } from "@/components/site/variant-badge";
 import { WhatsAppFab } from "@/components/site/whatsapp-fab";
@@ -35,11 +36,12 @@ export default function Home() {
         <About />
         <Products />
         <Trust />
-        <LeadForm />
+        <Contact />
         {/* Build-time variant marker — visible only on inspect; not displayed */}
         <meta name="x-variant-id" content={variantId} />
         <meta name="x-variant-name" content={variantMeta?.name || "default"} />
       </main>
+      <ServiceAreas />
       <SiteFooter />
       <WhatsAppFab />
       <VariantBadge />
