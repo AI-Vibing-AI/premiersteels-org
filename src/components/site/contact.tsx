@@ -82,7 +82,7 @@ export function Contact() {
                   {site.contact.phone}
                 </p>
                 <p className="text-xs text-text-muted mt-1">
-                  Bulk orders · Advance payment · {site.contact.name}
+                  Bulk orders · Payment on loading/delivery only · No credit
                 </p>
               </div>
               <span className="font-mono text-xs uppercase tracking-wider text-accent opacity-0 transition-opacity group-hover:opacity-100">
